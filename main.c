@@ -6,8 +6,8 @@ int main(int argc, char **argv)
 {
 	FILE *file;
 	unsigned int line_number;
-	int i;
-	char line[100], instructions[100];
+	int i, instruct_len;
+	char line[100], instruction[100];
 
 	/** An array of type struct instruction_t the stores opcode
 	 * and its respective functions **/
@@ -39,7 +39,7 @@ int main(int argc, char **argv)
 			{
 				if (strcmp(instructions[i].opcode, instruction) == 0)
 				{
-					instruction[i].f(&stack, line_number);
+					instructions[i].f(&stack, line_number);
 					break;
 				}
 			}
@@ -52,12 +52,5 @@ int main(int argc, char **argv)
 	}
 
 	fclose(file);
-	if (line)
-		free(line);
-	else
-	{
-		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
-	}
 	return (0);
 }
