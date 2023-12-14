@@ -19,6 +19,7 @@ int read_execute(FILE *file)
 		{"pint", pint},
 		{"pop", pop},
 		{"swap", swap},
+		{"add", add},
 	};
 
 	value = 0;
