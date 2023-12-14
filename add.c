@@ -24,7 +24,7 @@ void add(stack_t **stack, unsigned int line_number)
 	num2->n += num1->n;
 
 	*stack = num2;
-	(*stack)->prev = NULL
+	(*stack)->prev = NULL;
 
 	free(num1);
 }
