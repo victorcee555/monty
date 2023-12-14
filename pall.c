@@ -10,12 +10,14 @@
 
 void pall(stack_t **stack, unsigned int line_number)
 {
+	stack_t *stack_elm;
+
 	(void)line_number;
 
 	if (*stack == NULL)
 		return;
 
-	stack_t *stack_elm = *stack;
+	stack_elm = *stack;
 
 	while (stack_elm != NULL)
 	{
