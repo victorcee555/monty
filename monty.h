@@ -38,12 +38,23 @@ typedef struct instruction_s
 } instruction_t;
 
 
-/** EXTERN VARIABLES **/
-int value;
-stack_t *stack;
-
 /** FUNCTIONS **/
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
+
+
+/** EXTERN VARIABLES **/
+int value;
+stack_t *stack;
+FILE *file;
+unsigned int line_number;
+int i, instruct_len;
+char line[100], instruction[100];
+/** 
+ * An array of type struct instruction_t the stores opcode
+ * and its respective functions 
+ */
+
+
 
 #endif

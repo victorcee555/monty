@@ -3,6 +3,7 @@
 /**
  * push - A function to add ontop of the stack.
  *
+ * @stack: A pointer to a pointer to the stack.
  * @line_number: The line number from the monty file.
  *
  * Return: void.
@@ -12,6 +13,7 @@ void push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new_stack;
 
+	(void)line_number;
 	new_stack = malloc(sizeof(stack_t));
 	if (new_stack == NULL)
 	{

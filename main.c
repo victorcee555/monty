@@ -1,37 +1,27 @@
 #include "monty.h"
 
-stack_t *stack = NULL;
+/**
+ * read_execute - executes the functions
+ * @file: the variable which streams the monty file
+ *
+ * Return: 1
+ */
 
-int main(int argc, char **argv)
+int read_execute(FILE *file)
 {
-	FILE *file;
 	unsigned int line_number;
-	int i, instruct_len;
+	int i;
 	char line[100], instruction[100];
 
-	/** An array of type struct instruction_t the stores opcode
-	 * and its respective functions **/
 	instruction_t instructions[] = {
 		{"push", push},
 		{"pall", pall},
 	};
 
-	if (argc != 2)
-	{
-		fprintf(stderr, "USAGE: monty file\n");
-		exit(EXIT_FAILURE);
-	}
-
-	file = fopen(argv[1], "r");
-	if (file == NULL)
-	{
-		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
-		exit(EXIT_FAILURE);
-	}
-
 	value = 0;
 	line_number = 1;
 	instruct_len = sizeof(instructions) / sizeof(instructions[0]);
+
 	while (fgets(line, sizeof(line), file) != NULL)
 	{
 		if (sscanf(line, "%s" "%d", instruction, &value) == 2)
@@ -49,6 +39,42 @@ int main(int argc, char **argv)
 			exit(EXIT_FAILURE);
 		}
 		line_number++;
+	}
+	return (1);
+}
+
+/**
+ * main - A monty interpreter.
+ *
+ * @argc: argument count
+ * @argv: a pointer to an array of strings containing the argumets.
+ *
+ * Return: 0.
+ */
+
+int main(int argc, char **argv)
+{
+	FILE *file;
+
+	stack = NULL;
+
+	if (argc != 2)
+	{
+		fprintf(stderr, "USAGE: monty file\n");
+		exit(EXIT_FAILURE);
+	}
+
+	file = fopen(argv[1], "r");
+	if (file == NULL)
+	{
+		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
+		exit(EXIT_FAILURE);
+	}
+
+	if (!read_execute(file))
+	{
+		fclose(file);
+		exit(EXIT_FAILURE);
 	}
 
 	fclose(file);
