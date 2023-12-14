@@ -16,6 +16,9 @@ int read_execute(FILE *file)
 	instruction_t instructions[] = {
 		{"push", push},
 		{"pall", pall},
+		{"pint", pint},
+		{"pop", pop},
+		{"swap", swap},
 	};
 
 	value = 0;
