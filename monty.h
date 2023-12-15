@@ -52,7 +52,7 @@ int value;
 stack_t *stack;
 FILE *file;
 unsigned int line_number;
-int i, instruct_len;
+int i, instruct_len, get_input, found;
 char line[100], instruction[100];
 /** 
  * An array of type struct instruction_t the stores opcode

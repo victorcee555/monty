@@ -9,10 +9,6 @@
 
 int read_execute(FILE *file)
 {
-	unsigned int line_number;
-	int i;
-	char line[100], instruction[100];
-
 	instruction_t instructions[] = {
 		{"push", push},
 		{"pall", pall},
@@ -22,26 +18,29 @@ int read_execute(FILE *file)
 		{"add", add},
 		{"nop", nop},
 	};
-	value = 0;
 	line_number = 1;
 	instruct_len = sizeof(instructions) / sizeof(instructions[0]);
 	while (fgets(line, sizeof(line), file) != NULL)
 	{
-		int get_input1 = sscanf(line, "%s%d", instruction, &value) == 2;
-		int get_input2 = sscanf(line, "%s", instruction) == 1;
-
-		if (get_input1 || get_input2)
-		{
-			for (i = 0; i < instruct_len; i++)
+		if (sscanf(line, "%s", instruction) == 1)
+			if (strcmp(instruction, "push") == 0)
 			{
-				if (strcmp(instructions[i].opcode, instruction) == 0)
+				get_input = sscanf(line, "%*s%d", &value);
+				if (get_input != 1)
 				{
-					instructions[i].f(&stack, line_number);
-					break;
+					fprintf(stderr, "L%d: usage: push integer\n", line_number);
+					exit(EXIT_FAILURE);
 				}
 			}
-		}
-		else
+		found = 0;
+		for (i = 0; i < instruct_len; i++)
+			if (strcmp(instructions[i].opcode, instruction) == 0)
+			{
+				instructions[i].f(&stack, line_number);
+				found = 1;
+				break;
+			}
+		if (!found)
 		{
 			fprintf(stderr, "L%d: unknown instruction %s\n", line_number, instruction);
 			exit(EXIT_FAILURE);
@@ -55,7 +54,7 @@ int read_execute(FILE *file)
  * main - A monty interpreter.
  *
  * @argc: argument count
- * @argv: a pointer to an array of strings containing the argumets.
+ * @argv: a pointer to an array of strings containing the arguments.
  *
  * Return: 0.
  */
@@ -88,3 +87,4 @@ int main(int argc, char **argv)
 	fclose(file);
 	return (0);
 }
+
