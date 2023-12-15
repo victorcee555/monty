@@ -22,14 +22,16 @@ int read_execute(FILE *file)
 		{"add", add},
 		{"nop", nop},
 	};
-
 	value = 0;
 	line_number = 1;
 	instruct_len = sizeof(instructions) / sizeof(instructions[0]);
-
 	while (fgets(line, sizeof(line), file) != NULL)
 	{
-		if (sscanf(line, "%s" "%d", instruction, &value) == 2)
+		int get_input1 = sscanf(line, "%s%d", instruction, &value) == 2;
+		int get_input2 = sscanf(line, "%s", instruction) == 1;
+
+		if (get_input1 || get_input2)
+		{
 			for (i = 0; i < instruct_len; i++)
 			{
 				if (strcmp(instructions[i].opcode, instruction) == 0)
@@ -38,6 +40,7 @@ int read_execute(FILE *file)
 					break;
 				}
 			}
+		}
 		else
 		{
 			fprintf(stderr, "L%d: unknown instruction %s\n", line_number, instruction);
