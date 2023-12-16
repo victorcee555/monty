@@ -46,6 +46,7 @@ void pop(stack_t **stack, unsigned int line_number);
 void swap(stack_t **stack, unsigned int line_number);
 void add(stack_t **stack, unsigned int line_number);
 void nop(stack_t **stack, unsigned int line_number);
+void free_stack(stack_t *stack);
 
 /** EXTERN VARIABLES **/
 int value;
@@ -54,11 +55,6 @@ FILE *file;
 unsigned int line_number;
 int i, instruct_len, get_input, found;
 char line[100], instruction[100];
-/** 
- * An array of type struct instruction_t the stores opcode
- * and its respective functions 
- */
-
 
 
 #endif
