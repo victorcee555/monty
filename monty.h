@@ -55,6 +55,6 @@ FILE *file;
 unsigned int line_number;
 int i, instruct_len, get_input, found;
 char line[100], instruction[100];
-
+char *endptr;
 
 #endif
