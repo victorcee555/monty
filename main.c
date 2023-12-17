@@ -17,6 +17,10 @@ int read_execute(FILE *file)
 		{"swap", swap},
 		{"add", add},
 		{"nop", nop},
+		{"sub", sub},
+		{"div", _div},
+		{"mul", mul},
+		{"mod", mod},
 	};
 	line_number = 0;
 	instruct_len = sizeof(instructions) / sizeof(instructions[0]);
