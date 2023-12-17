@@ -32,12 +32,6 @@ int read_execute(FILE *file)
 					fprintf(stderr, "L%d: usage: push integer\n", line_number);
 					exit(EXIT_FAILURE);
 				}
-
-				strtol(line + 5, &endptr, 10);
-				if (*endptr != '\n' && *endptr != '\0')
-				{
-					fprintf(stderr, "L%d: usage: push integer\n", line_number);
-				}
 			}
 		found = 0;
 		for (i = 0; i < instruct_len; i++)
