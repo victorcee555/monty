@@ -18,10 +18,11 @@ int read_execute(FILE *file)
 		{"add", add},
 		{"nop", nop},
 	};
-	line_number = 1;
+	line_number = 0;
 	instruct_len = sizeof(instructions) / sizeof(instructions[0]);
 	while (fgets(line, sizeof(line), file) != NULL)
 	{
+		line_number++;
 		if (sscanf(line, "%s", instruction) == 1)
 			if (strcmp(instruction, "push") == 0)
 			{
@@ -45,7 +46,6 @@ int read_execute(FILE *file)
 			fprintf(stderr, "L%d: unknown instruction %s\n", line_number, instruction);
 			exit(EXIT_FAILURE);
 		}
-		line_number++;
 	}
 	return (1);
 }
@@ -81,10 +81,12 @@ int main(int argc, char **argv)
 	if (!read_execute(file))
 	{
 		fclose(file);
+		free_stack(stack);
 		exit(EXIT_FAILURE);
 	}
 
 	fclose(file);
+	free_stack(stack);
 	return (0);
 }
 
