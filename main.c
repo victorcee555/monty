@@ -1,5 +1,19 @@
 #include "monty.h"
 
+
+/**
+ * exit_func - prints error and exits
+ *
+ * Return: void
+ */
+
+void exit_func()
+{
+		fprintf(stderr, "L%d: unknown instruction %s\n", line_number, instruction);
+		exit(EXIT_FAILURE);
+	
+}
+
 /**
  * read_execute - executes the functions
  * @file: the variable which streams the monty file
@@ -23,6 +37,8 @@ int read_execute(FILE *file)
 	while (fgets(line, sizeof(line), file) != NULL)
 	{
 		line_number++;
+		if (line[0] == '#' || line[0] == '\n')
+			continue;
 		if (sscanf(line, "%s", instruction) == 1)
 			if (strcmp(instruction, "push") == 0)
 			{
@@ -43,8 +59,7 @@ int read_execute(FILE *file)
 			}
 		if (!found)
 		{
-			fprintf(stderr, "L%d: unknown instruction %s\n", line_number, instruction);
-			exit(EXIT_FAILURE);
+			exit_func();
 		}
 	}
 	return (1);
@@ -89,4 +104,3 @@ int main(int argc, char **argv)
 	free_stack(stack);
 	return (0);
 }
-
